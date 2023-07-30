@@ -42,7 +42,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-const port = process.env.PORT || 9999;
+const port = process.env.PORT || 3000;
 
 
 interface IErrorMessage {
