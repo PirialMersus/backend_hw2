@@ -31,11 +31,13 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
     authMiddleware,
 
     body('name').trim().not().isEmpty().withMessage('enter input value in name field'),
-    body('youtubeUrl').isLength({max: 100}).withMessage('youtubeUrl length should be less then 100'),
+    body('description').trim().not().isEmpty().withMessage('enter input value in description field'),
+    body('websiteUrl').isLength({max: 100}).withMessage('websiteUrl length should be less then 100'),
+    body('description').isLength({max: 500}).withMessage('description length should be less then 100'),
     body('name').isLength({max: 15}).withMessage('name length should be less then 15'),
-    body('youtubeUrl').custom((value, {req}) => {
+    body('websiteUrl').custom((value, {req}) => {
       const regExp = new RegExp("https://([a-zA-Z0-9_-]+.)+[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*/?$");
-      if (!regExp.test(req.body.youtubeUrl)) {
+      if (!regExp.test(req.body.websiteUrl)) {
         throw new Error('enter correct value');
       }
 
@@ -55,9 +57,9 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
     param('id').trim().not().isEmpty().withMessage('enter id value in params'),
     body('name').trim().not().isEmpty().withMessage('enter input value in name field'),
     // body('youtubeUrl').not().isEmpty().withMessage('enter input value in youtubeUrl field'),
-    body('youtubeUrl').isLength({max: 100}).withMessage('youtubeUrl length should be less then 100'),
+    body('websiteUrl').isLength({max: 100}).withMessage('websiteUrl length should be less then 100'),
     body('name').isLength({max: 15}).withMessage('name length should be less then 15'),
-    body('youtubeUrl').custom((value, {req}) => {
+    body('websiteUrl').custom((value, {req}) => {
       const regExp = new RegExp("https://([a-zA-Z0-9_-]+.)+[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*/?$");
       if (!regExp.test(req.body.youtubeUrl)) {
         throw new Error('enter correct value');
@@ -69,7 +71,8 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
     inputValidatorMiddleware,
     (req: Request, res: Response) => {
       const name = req.body.name;
-      const youtubeUrl = req.body.youtubeUrl;
+      const websiteUrl = req.body.websiteUrl;
+      const description = req.body.description;
 
       // if (!name) {
       //     errorObj.errorsMessages = [{
@@ -109,7 +112,7 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
       // }
 
       const id = req.params.id;
-      const blog = blogsRepository.updateBlogById(id, name, youtubeUrl)
+      const blog = blogsRepository.updateBlogById(id, name, websiteUrl, description)
 
       if (blog) {
         res.status(204).send(blog)

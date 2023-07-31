@@ -5,7 +5,7 @@ export const blogsRepository = {
     return blogs
   },
   getBlogById(id: string) {
-    return blogs.find(blogger => blogger.id === id)
+    return blogs.find(blog => blog.id === id)
   },
   deleteBlogById(id: string) {
     let isDeleted = false;
@@ -18,13 +18,14 @@ export const blogsRepository = {
     }
     return isDeleted
   },
-  updateBlogById(id: string, name: string, websiteUrl: string) {
-    const blogger = blogs.find((blogger) => blogger.id === id);
+  updateBlogById(id: string, name: string, websiteUrl: string, description: string) {
+    const blog = blogs.find((blogger) => blogger.id === id);
 
-    if (!blogger) return false;
-    blogger.websiteUrl = websiteUrl
-    blogger.name = name
-    return blogger
+    if (!blog) return false;
+    blog.websiteUrl = websiteUrl
+    blog.name = name
+    blog.description = description
+    return blog
 
   },
   createBlog(name: string, websiteUrl: string, description: string) {
