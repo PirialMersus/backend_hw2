@@ -45,9 +45,9 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
     inputValidatorMiddleware,
     (req: Request, res: Response) => {
 
-      const newBlogger = blogsRepository.createBlogger(req.body.name, req.body.youtubeUrl)
+      const newBlog = blogsRepository.createBlog(req.body.name, req.body.websiteUrl, req.body.description)
 
-      res.status(201).send(newBlogger)
+      res.status(201).send(newBlog)
 
     })
   .put('/:id?',

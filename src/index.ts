@@ -1,44 +1,14 @@
-import express, {NextFunction, Request, Response} from 'express';
+import express, {Request, Response} from 'express';
 import bodyParser from "body-parser";
 import {blogs, posts} from "./repositories/db";
-import {blogsRepository} from "./repositories/blogs-repository";
-import {postsRepository} from "./repositories/posts-repository";
 import {blogsRoutes} from "./routes/blogs-routes";
 import {postsRoutes} from "./routes/posts-routes";
 import cors from 'cors'
-import {authMiddleware} from "./middlewares/auth-middleware";
 
-const ipAddressesBlackList = ['192.160.1.1', '::2'];
-
-const blackListMiddleWare = (req: Request, res: Response, next: NextFunction) => {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-  const result = ipAddressesBlackList.find((el: string) => el === ip)
-  if (result) {
-    res.sendStatus(403)
-    return
-  }
-  next()
-}
-
-let count = 0
-const countMiddleWare = (req: Request, res: Response, next: NextFunction) => {
-  count++
-  res.header('count', count.toString())
-  next()
-}
-
-export const contentTypeMiddleWare = (contentType: string) => (req: Request, res: Response, next: NextFunction) => {
-  if (!req.is(contentType)) {
-    res.sendStatus(400).send('Bad content type');
-  }
-  next()
-}
 
 const app = express();
 app.use(cors());
-// app.use(contentTypeMiddleWare);
-// app.use(blackListMiddleWare);
-// app.use(countMiddleWare);
+
 app.use(bodyParser.json());
 
 

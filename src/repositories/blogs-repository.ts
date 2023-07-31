@@ -1,4 +1,4 @@
-import {blogs} from "./db";
+import {blogs, IBlog} from "./db";
 
 export const blogsRepository = {
   getBlogs() {
@@ -18,22 +18,23 @@ export const blogsRepository = {
     }
     return isDeleted
   },
-  updateBlogById(id: string, name: string, youTubeUrl: string) {
+  updateBlogById(id: string, name: string, websiteUrl: string) {
     const blogger = blogs.find((blogger) => blogger.id === id);
 
     if (!blogger) return false;
-    blogger.youtubeUrl = youTubeUrl
+    blogger.websiteUrl = websiteUrl
     blogger.name = name
     return blogger
 
   },
-  createBlogger(name: string, youtubeUrl: string) {
-    const newBlogger = {
+  createBlog(name: string, websiteUrl: string, description: string) {
+    const newBlog: IBlog = {
       id: blogs.length.toString(),
       name,
-      youtubeUrl
+      description,
+      websiteUrl
     }
-    blogs.push(newBlogger)
-    return newBlogger
+    blogs.push(newBlog)
+    return newBlog
   }
 }

@@ -1,22 +1,24 @@
 export interface IBlog {
   id: string,
   name: string,
-  youtubeUrl: string
+  description: string,
+  websiteUrl: string
 }
+
 export const blogs: Array<IBlog> = [
   {
     id: "0",
     name: 'first blog',
-    youtubeUrl: 'https://www.youtube.com/channel/UCNH9VJDJVt8pXg4TEUHh76w'
+    description: 'first blog description',
+    websiteUrl: 'https://www.youtube.com/channel/UCNH9VJDJVt8pXg4TEUHh76w'
   },
   {
     id: "1",
     name: 'second blog',
-    youtubeUrl: 'https://www.youtube.com/c/ITKAMASUTRA'
+    description: 'second blog description',
+    websiteUrl: 'https://www.youtube.com/c/ITKAMASUTRA'
   },
 ]
-
-
 
 export interface IPost {
   id: string,
@@ -26,6 +28,7 @@ export interface IPost {
   content: string,
   blogName: string
 }
+
 export const posts: Array<IPost> = [
   {
     id: "0",
