@@ -6,7 +6,6 @@ import {inputValidatorMiddleware} from "../middlewares/input-validator-middlewar
 import {body, param} from "express-validator";
 import {authMiddleware} from "../middlewares/auth-middleware";
 
-// put here array with videos
 export const blogsRoutes = Router({})
 
 blogsRoutes.get('/', (req: Request, res: Response) => {
@@ -41,7 +40,6 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
         throw new Error('enter correct value');
       }
 
-      // Indicates the success of this synchronous custom validator
       return true;
     }),
     inputValidatorMiddleware,
@@ -61,11 +59,10 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
     body('name').isLength({max: 15}).withMessage('name length should be less then 15'),
     body('websiteUrl').custom((value, {req}) => {
       const regExp = new RegExp("https://([a-zA-Z0-9_-]+.)+[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*/?$");
-      if (!regExp.test(req.body.youtubeUrl)) {
+      if (!regExp.test(req.body.websiteUrl)) {
         throw new Error('enter correct value');
       }
 
-      // Indicates the success of this synchronous custom validator
       return true;
     }),
     inputValidatorMiddleware,
@@ -73,43 +70,6 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
       const name = req.body.name;
       const websiteUrl = req.body.websiteUrl;
       const description = req.body.description;
-
-      // if (!name) {
-      //     errorObj.errorsMessages = [{
-      //         message: 'enter input value',
-      //         field: 'name',
-      //     }]
-      //     res.status(400).send(errorObj)
-      // }
-      // if (!youtubeUrl) {
-      //     errorObj.errorsMessages = [{
-      //         message: 'enter input value',
-      //         field: 'youtubeUrl',
-      //     }]
-      //     res.status(400).send(errorObj)
-      // }
-      // if (req.body.name.length > 15) {
-      //     errorObj.errorsMessages = [{
-      //         message: 'name length should be less then 15',
-      //         field: 'name',
-      //     }]
-      //     res.status(400).send(errorObj)
-      // }
-      // if (req.body.youtubeUrl.length > 100) {
-      //     errorObj.errorsMessages = [{
-      //         message: 'youtubeUrl length should be less then 100',
-      //         field: 'youtubeUrl',
-      //     }]
-      //     res.status(400).send(errorObj)
-      // }
-      // const regExp = new RegExp("https://([a-zA-Z0-9_-]+.)+[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*/?$");
-      // if (!regExp.test(req.body.youtubeUrl)) {
-      //     errorObj.errorsMessages = [{
-      //         message: 'enter correct value',
-      //         field: 'youtubeUrl',
-      //     }]
-      //     res.status(400).send(errorObj)
-      // }
 
       const id = req.params.id;
       const blog = blogsRepository.updateBlogById(id, name, websiteUrl, description)
