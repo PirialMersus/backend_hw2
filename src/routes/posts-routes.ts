@@ -67,11 +67,10 @@ postsRoutes.get('/', (req: Request, res: Response) => {
     })
   .put('/:id?',
     authMiddleware,
-    body('blogId').custom((value, {req}) => {
-      if (!blogs.find(blogger => blogger.id === value)) {
-        throw new Error('incorrect blogger id');
+    body('blogId').custom((value) => {
+      if (!blogs.find(blog => blog.id === value)) {
+        throw new Error('incorrect blog id');
       }
-      // Indicates the success of this synchronous custom validator
       return true;
     }),
     body('blogId').trim().not().isEmpty().withMessage('enter input value in blogId field'),

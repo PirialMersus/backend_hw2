@@ -32,7 +32,7 @@ blogsRoutes.get('/', (req: Request, res: Response) => {
     body('name').trim().not().isEmpty().withMessage('enter input value in name field'),
     body('description').trim().not().isEmpty().withMessage('enter input value in description field'),
     body('websiteUrl').isLength({max: 100}).withMessage('websiteUrl length should be less then 100'),
-    body('description').isLength({max: 500}).withMessage('description length should be less then 100'),
+    body('description').isLength({max: 500}).withMessage('description length should be less then 500'),
     body('name').isLength({max: 15}).withMessage('name length should be less then 15'),
     body('websiteUrl').custom((value, {req}) => {
       const regExp = new RegExp("https://([a-zA-Z0-9_-]+.)+[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+)*/?$");
